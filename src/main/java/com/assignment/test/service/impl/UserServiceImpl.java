@@ -108,7 +108,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserRegistrationInfo getConfirmedRegistrationInfo(String email) {
-        String query = "SELECT r.hotel, r.permit, r.course_cost, r.total_cost, u.name, u.email, u.status FROM Registration as r JOIN User as u ON r.user = u.id WHERE email = ?";
+        String query = "SELECT r.hotel, r.permit, r.course_cost, r.total_cost, u.name, u.email, u.status FROM registration as r JOIN user as u ON r.user = u.id WHERE email = ?";
        List<Object[]> list= em.createNativeQuery(query).
                 setParameter(1, email)
                 .getResultList();

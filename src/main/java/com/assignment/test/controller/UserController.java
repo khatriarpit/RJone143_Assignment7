@@ -1,8 +1,10 @@
 package com.assignment.test.controller;
 
+import com.assignment.test.model.entity.Course;
 import com.assignment.test.model.entity.Registration;
 import com.assignment.test.model.entity.User;
 import com.assignment.test.model.entity.UserRegistrationInfo;
+import com.assignment.test.service.CourseService;
 import com.assignment.test.service.RegistrationService;
 import com.assignment.test.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class UserController {
 
     @Autowired
     private RegistrationService registrationService;
+
+    @Autowired
+    CourseService courseService;
 
     @PostMapping("/registration")
     public String registration(Model model, @RequestParam(name = "action") String action, HttpServletRequest request) {
@@ -137,17 +142,26 @@ public class UserController {
             registration.setTotalCost(userRegistrationInfo.getTotalCost());
             registration.setUser(userId);
 
-            registrationService.insertRegistration(registration);
-            Registration registrationObject = registrationService.getRegistrationId(userId);
-            Integer registrationId = registrationObject.getId();
+//            registrationService.insertRegistration(registration);
+//            Registration registrationObject = registrationService.getRegistrationId(userId);
+//            Integer registrationId = registrationObject.getId();
             String[] courses = userRegistrationInfo.getCourses();
 
-            for (Integer i = 0; i < courses.length; i++) {
-                Matcher matcher = Pattern.compile("\\d+").matcher(courses[i]);
-                matcher.find();
-                int courseId = Integer.valueOf(matcher.group());
-                worker.insertRegistrationCourses(courseId, registrationId);
+            // Get Course
+            List<Course> courseList = courseService.getAllCourses();
+            if (courseList.isEmpty() && courseList.size() <= 0) {
+                 courseService.addCourses();
             }
+
+            List<Course> courseObectList=new ArrayList<>();
+            for (Integer i = 0; i < courses.length; i++) {
+
+//                worker.insertRegistrationCourses(courseId, registrationId);
+                Course courseObect1=courseService.findCourseByCourseName(courses[i]);
+                courseObectList.add(courseObect1);
+            }
+            registration.setCourses(courseObectList);
+            registrationService.insertRegistration(registration);
             UserRegistrationInfo confirmedUserRegistrationInfo = worker.getConfirmedRegistrationInfo(userRegistrationInfo.getEmail());
             request.setAttribute("userRegistrationInfo", confirmedUserRegistrationInfo);
 

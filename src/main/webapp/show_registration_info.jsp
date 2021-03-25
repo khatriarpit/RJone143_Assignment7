@@ -10,6 +10,11 @@
 <style>
     <%@ include file="/style.css" %>
 </style>
+<script type = "text/javascript" language = "javascript">
+  function disable(){
+    document.getElementById('formSave').setAttribute("disabled", "disabled");
+  }
+</script>
 <!-- Popper JS -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"
@@ -95,9 +100,9 @@
         						<form action="/" method="POST">
         					    	<input type="submit" class="btn btn-primary" value="Edit Registration" />
         						</form></br>
-        						<form action="registration" method="POST">
+        						<form action="registration" method="POST" onsubmit="return disable()">
         							<input hidden type="text" name="action" value="confirm" >
-        						    <input type="submit" class="btn btn-success" value="Confirm Registration" />
+        						    <input type="submit" id="formSave" class="btn btn-success" value="Confirm Registration"  />
         						</form>
 
 	</div>
