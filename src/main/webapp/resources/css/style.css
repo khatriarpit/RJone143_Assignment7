@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+body {
+	background-color:beige;
+}
+
+#heading{
+	background: rgb(0,212,255);
+background: linear-gradient(90deg, rgba(0,212,255,1) 0%, rgba(9,9,121,1) 0%, rgba(5,4,70,1) 69%, rgba(2,0,36,1) 96%);
+padding-left:20px;
+padding-top:20px;
+color:white;
+ font-family: Garamond;
+ font-stretch: extra-condensed;
+ 
+}
+
+h1{
+	font-size:35px;
+}
+
+h3{
+	padding-bottom:20px;
+	font-stretch:ultra-expanded;
+}
+
+h4 {text-align:center;}
+
+ul {
+   list-style-type: none;
+   padding:none;
+   margin:none
+}
+
+li{padding:none;}
+
+table, th, td {
+  border: 1px solid black;
+  background: white;
+}
